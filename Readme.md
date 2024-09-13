@@ -1,7 +1,9 @@
 # A CLI Interface to Connect and Execute Queries to an RDBMS
+
 This project provides a simple command-line interface (CLI) to connect to a relational database management system (RDBMS) and execute SQL queries. It uses the Oracle JDBC driver (ojdbc11) for database connectivity.
 
 ## Directory Structure
+
 ```graphql
 lib/
   └── ojdbc11.jar        # JDBC driver for Oracle DB
@@ -36,14 +38,15 @@ Once compiled, you can bundle the application into a JAR file with the following
 ```bash
 jar -cfm App.jar Manifest.mf -C build .
 ```
+
 * `-c` creates the JAR.
 * `-f` specifies the name of the output JAR file (App.jar).
 * `-m` includes the Manifest.mf file, which should specify the main class and classpath.
 * `-C build .` tells the JAR tool to package the compiled files from the build/ directory.
 
 ### Step 3: Run the Application
-You can run the JAR file by providing the necessary database connection details as system properties.
 
+You can run the JAR file by providing the necessary database connection details as system properties.
 
 ```bash
 java -Durl="jdbc:oracle:thin:@//localhost:1521/xe" \
@@ -67,5 +70,5 @@ java -Durl="jdbc:oracle:thin:@//localhost:1521/xe" \
 ---
 
 ### Customization
-You can easily modify the application to connect to other databases by replacing the Oracle JDBC driver with the appropriate driver for your database. Be sure to update the JDBC URL, username, and password accordingly.
 
+You can easily modify the application to connect to other databases by replacing the Oracle JDBC driver with the appropriate driver for your database. Be sure to update the JDBC URL, username, and password accordingly.
