@@ -7,6 +7,7 @@ This project provides a simple command-line interface (CLI) to connect to a rela
 ```graphql
 lib/
   └── ojdbc11.jar        # JDBC driver for Oracle DB
+  └── mysqlconn.jar        # JDBC driver for MySQL (platform independent)
 
 src/
   ├── Main.java          # Entry point of the application
@@ -49,9 +50,9 @@ jar -cfm App.jar Manifest.mf -C build .
 You can run the JAR file by providing the necessary database connection details as system properties.
 
 ```bash
-java -Durl="jdbc:oracle:thin:@//localhost:1521/xe" \
-     -Dusername="mxtylish" \
-     -Dpassword="asdf" \
+java -Durl="jdbc:oracle:thin:@//localhost:1521/xe"
+     -Dusername="<user-name>"
+     -Dpassword="<your-password>"
      -jar App.jar
 ```
 

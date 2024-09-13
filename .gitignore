@@ -1,7 +1,12 @@
 Test.java
-out/
-bin/
+out
+bin
+build
 build/
 sata.bat
-
+*.py
+*.c
+*.cs
+*.js
+*.jar
 # >java -cp "out;./lib/ojdbc11.jar" -Dusername="mxtylish" -Dpassword="asdf" -Durl="jdbc:oracle:thin:@//localhost:1521/xe" Main
