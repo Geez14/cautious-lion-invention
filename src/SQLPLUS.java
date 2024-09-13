@@ -11,36 +11,31 @@ public class SQLPLUS {
     this.conn = conn;
   }
 
-  @SuppressWarnings("unused")
   private void display(ResultSetMetaData tableMetaData, ResultSet rs) throws SQLException {
     int columns = tableMetaData.getColumnCount();
-    if (columns != 0) {
-      // Printing column labels
+    // Printing column labels
+    for (int i = 1; i <= columns; i++) {
+      System.out.print("\033[93m" + tableMetaData.getColumnName(i) + "\033[0m");
+      if (i < columns) {
+        System.out.print(" | ");
+      }
+    }
+    System.out.println();
+
+    // Printing rows
+    while (rs.next()) {
       for (int i = 1; i <= columns; i++) {
-        System.out.print("\033[93m" + tableMetaData.getColumnName(i) + "\033[0m");
+        System.out.print(rs.getString(i));
         if (i < columns) {
           System.out.print(" | ");
         }
       }
       System.out.println();
 
-      // Printing rows
-      while (rs.next()) {
-        for (int i = 1; i <= columns; i++) {
-          System.out.print(rs.getString(i));
-          if (i < columns) {
-            System.out.print(" | ");
-          }
-        }
-        System.out.println();
-
-        for (int i = 0; i < columns; i++) {
-          System.out.print("-----------");
-        }
-        System.out.println();
+      for (int i = 0; i < columns; i++) {
+        System.out.print("-----------");
       }
-    } else {
-      System.out.println("Executed!!");
+      System.out.println();
     }
   }
 
@@ -49,9 +44,16 @@ public class SQLPLUS {
       System.out.println("\033[91mError:\033[0m Connection is null.");
       throw new NullPointerException("Connection object cannot be null!");
     }
-    try (Statement smt = conn.createStatement(); ResultSet rs = smt.executeQuery(query)) {
-      ResultSetMetaData rsm = rs.getMetaData();
-      display(rsm, rs);
+    try (Statement smt = conn.createStatement()) {
+      boolean isResultSet = smt.execute(query);
+      if (isResultSet) {
+        try (ResultSet rs = smt.getResultSet()) {
+          ResultSetMetaData rsm = rs.getMetaData();
+          display(rsm, rs);
+        }
+      } else {
+        System.out.println("Executed Query Success!");
+      }
     } catch (SQLException sqe) {
       System.out.println("State: " +
           sqe.getSQLState() +
